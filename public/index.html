@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Odczyt temperatury</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+        html,
+        body {
+            font-family: 'Lato', sans-serif;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .container {
+            top: 25%;
+            position: absolute;
+            text-align: center;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .data {
+            margin: auto;
+        }
+
+        h1 {
+            font-size: 7rem;
+            margin: auto 0;
+        }
+
+        h1::after {
+            font-size: 2rem;
+            vertical-align: super;
+        }
+
+        #temperature::after {
+            content: '°C';
+        }
+
+        #humidity::after {
+            content: '%';
+        }
+
+        h3 {
+            font-size: 2rem;
+            margin: auto 0;
+        }
+
+        .live {
+            width: 100%;
+            padding-bottom: 5%;
+            display: inline-block;
+            
+        }
+        .downlivebar{ 
+            transform: skewX(-30deg);
+        }
+        .uplivebar{ 
+            transform: skewX(30deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="data">
+            <div class="live uplivebar"></div>
+            <div class="temperature">
+                <h3>Temperatura:</h3>
+                <h1 id="temperature"></h1>
+            </div>
+            <div class="humidity">
+                <h3>Wilgotność:</h3>
+                <h1 id="humidity"></h1>
+            </div>
+            <div class="live downlivebar"></div>
+        </div>
+
+    </div>
+
+
+    <script src="socket.io.min.js"></script>
+    <script>
+        const temp = document.getElementById('temperature');
+        const hum = document.getElementById('humidity');
+        var socket = io();
+        socket.on('data', data => {
+            temp.innerHTML = data.temp;
+            hum.innerHTML = data.hum;
+        });
+        const livebars = document.getElementsByClassName('live');
+        changeLivebarColor = (color) => {
+            [].forEach.call(livebars, (element) => {
+                element.style.backgroundColor = color;
+            });
+        };
+
+
+        socket.on('reconnecting', (tries) => {
+            changeLivebarColor("orange");
+            if (tries === 3) {
+                changeLivebarColor("red");
+
+            }
+        });
+
+        socket.io.on('reconnect_error', (err) => {
+            console.log('connecterror');
+            changeLivebarColor("red");
+        });
+
+        socket.on('connect', () => {
+            changeLivebarColor("green");
+        });
+
+    </script>
+</body>
+
+</html>
