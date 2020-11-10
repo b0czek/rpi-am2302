@@ -1,6 +1,6 @@
 const dht = require("node-dht-sensor");
 const eventEmitter = require('events');
-class Sensor {
+class DHTSensor {
 
     
 
@@ -37,7 +37,6 @@ class Sensor {
     }
 
     nullData(){
-        console.log(this);
         this.temp = null;
         this.hum = null;
     }
