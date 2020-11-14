@@ -49,4 +49,4 @@ class DHTSensor {
     }
 }
 
-module.exports = Sensor;
+module.exports = DHTSensor;
