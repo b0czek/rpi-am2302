@@ -35,7 +35,6 @@ class DHTSensor {
                     // emit dataError when callback reports an error and null the data
                     this.emitter.emit('dataError');
                     this.nullData();
-                    console.log('error');
                     return;
                 }
                 // only reassign values when they are different
@@ -44,8 +43,7 @@ class DHTSensor {
                     this.temp = temperature;
                     this.hum = humidity;
                 }
-                //todo emit value read
-                console.log(temperature);
+                //todo emit value read (i think it will be needed for logging in db)
             });
         
         setTimeout(this.readSensor, this.pollingRate);
