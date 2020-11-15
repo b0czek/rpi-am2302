@@ -30,20 +30,24 @@ class DHTSensor {
     }
 
     private readSensor = () => {
-        try {
-            const response = dht.read(this.type, this.pin);
-            let temp = response.temperature;
-            let hum = response.humidity;
-            if (temp != this.temp || hum != this.hum) {
-                this.emitter.emit('dataChanged');
-                this.temp = temp;
-                this.hum = hum;
-            }
-        }
-        catch {
-            this.emitter.emit('dataError');
-            this.nullData();
-        }
+            dht.read(this.type, this.pin, (err, temperature, humidity) => {
+                if(err) {
+                    // emit dataError when callback reports an error and null the data
+                    this.emitter.emit('dataError');
+                    this.nullData();
+                    console.log('error');
+                    return;
+                }
+                // only reassign values when they are different
+                if (temperature != this.temp || humidity != this.hum) {
+                    this.emitter.emit('dataChanged');
+                    this.temp = temperature;
+                    this.hum = humidity;
+                }
+                //todo emit value read
+                console.log(temperature);
+            });
+        
         setTimeout(this.readSensor, this.pollingRate);
     }
 

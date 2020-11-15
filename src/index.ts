@@ -26,3 +26,6 @@ io.on('connect', (socket: Socket) => {
 sensor.emitter.on('dataChanged', () => {
     io.emit('data', sensor.getData());
 });
+sensor.emitter.on('dataError', () => {
+    io.emit('error')
+});
