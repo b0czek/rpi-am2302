@@ -106,3 +106,5 @@ dist
 
 core
 dist
+# do not leak credentials
+mikro-orm.config.ts

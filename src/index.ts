@@ -15,7 +15,7 @@ const server = app.listen(EXPRESS_PORT, () => {
     console.log(`app started on port ${EXPRESS_PORT}`);
     
 });
-
+//socketio initialization
 import { Server, Socket } from 'socket.io';
 const io = new Server(server);
 

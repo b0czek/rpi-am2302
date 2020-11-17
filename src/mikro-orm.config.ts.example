@@ -1,0 +1,16 @@
+import { MikroORM } from "@mikro-orm/core/MikroORM";
+import path from "path";
+
+export default {
+    migrations: {
+        path: path.join(__dirname, "./migrations"),
+        pattern: /^[\w-]+\d+\.[tj]s$/
+    },
+    dbName: "dbname",
+    type: "postgresql", 
+    debug: process.env.NODE_ENV !== "production",
+    user: "username",
+    password: "password"
+
+
+} as Parameters<typeof MikroORM.init>[0];
