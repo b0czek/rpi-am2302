@@ -2,6 +2,7 @@ import { MikroORM } from "@mikro-orm/core/MikroORM";
 import path from "path";
 
 export default {
+    entities: [Log],
     migrations: {
         path: path.join(__dirname, "./migrations"),
         pattern: /^[\w-]+\d+\.[tj]s$/
