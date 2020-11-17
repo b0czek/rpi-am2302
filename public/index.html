@@ -5,67 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="style.css">
     <title>Odczyt temperatury</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 
-        html,
-        body {
-            font-family: 'Lato', sans-serif;
-            font-weight: bold;
-            margin: 0;
-        }
-
-        .container {
-            top: 25%;
-            position: absolute;
-            text-align: center;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-
-        .data {
-            margin: auto;
-        }
-
-        h1 {
-            font-size: 7rem;
-            margin: auto 0;
-        }
-
-        h1::after {
-            font-size: 2rem;
-            vertical-align: super;
-        }
-
-        #temperature::after {
-            content: '°C';
-        }
-
-        #humidity::after {
-            content: '%';
-        }
-
-        h3 {
-            font-size: 2rem;
-            margin: auto 0;
-        }
-
-        .live {
-            width: 100%;
-            padding-bottom: 5%;
-            background-color: red;
-            display: inline-block;
-            
-        }
-        .downlivebar{ 
-            transform: skewX(-30deg);
-        }
-        .uplivebar{ 
-            transform: skewX(30deg);
-        }
-    </style>
 </head>
 
 <body>
@@ -87,52 +29,7 @@
 
 
     <script src="socket.io.min.js"></script>
-    <script>
-        const temp = document.getElementById('temperature');
-        const hum = document.getElementById('humidity');
-        
-        const livebars = document.getElementsByClassName('live');
-        changeLivebarColor = (color) => {
-            [].forEach.call(livebars, (element) => {
-                element.style.backgroundColor = color;
-            });
-        };
-
-
-        var socket = io();
-        socket.on('data', data => {
-            temp.innerHTML = data.temp;
-            hum.innerHTML = data.hum;
-            
-            if(data.temp ===null || data.hum === null ) {
-                changeLivebarColor("red");
-            }
-            else {
-                changeLivebarColor("green");
-            }
-        });
-
-        socket.on('error', _ => {
-            temp.innerHTML = null;
-            hum.innerHTML = null;
-            changeLivebarColor("red");
-        });
-
-        //idk if it even does anything xd
-        socket.on('reconnecting', (tries) => {
-            changeLivebarColor("orange");
-            if (tries === 3) {
-                changeLivebarColor("red");
-
-            }
-        });
-
-        socket.io.on('reconnect_error', (err) => {
-            changeLivebarColor("red");
-        });
-        //todo tidy up this bullshit
-
-    </script>
+    <script src="index.js"></script>
 </body>
 
 </html>
