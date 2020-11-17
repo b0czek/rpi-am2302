@@ -37,7 +37,7 @@ socket.on('reconnecting', (tries) => {
     }
 });
 
-socket.io.on('reconnect_error', (err) => {
+socket.io.on('reconnect_error', _ => {
     changeLivebarColor("red");
 });
 //todo tidy up this bullshit
