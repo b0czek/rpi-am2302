@@ -9,13 +9,23 @@ const PIN = 14;
 const TYPE = 22;
 const EXPRESS_PORT = 4000;
 
+// import fs from 'fs';
+
 
 const main = async () => {
+    
+    const orm = await MikroORM.init(mikroConfig);
+    await orm.getMigrator().up();
+    
     //init sensors
     let sensor = new Sensor(TYPE, PIN);
 
-    const orm = await MikroORM.init(mikroConfig);
-    await orm.getMigrator().up();
+    // const logs = await orm.em.find(Log, {});
+    // let temperatures: number[] = logs.map(t => t.temperature);
+    // let dates: Date[] = logs.map(d => d.date);
+    // let humidities: number[] = logs.map(h => h.humidity)
+
+    //fs.writeFileSync('data.json', JSON.stringify({temperatures: temperatures, dates: dates, humidities: humidities}));
 
     const app = express();
     app.use('/', express.static('public'));
@@ -32,9 +42,10 @@ const main = async () => {
         socket.emit('data', sensor.getData());
     });
     
-    sensor.emitter.on('dataChanged', async () => {
-        io.emit('data', sensor.getData());
-        const log = orm.em.create(Log, { humidity: sensor.Humidity, temperature: sensor.Temperature });
+    sensor.emitter.on('dataChanged', async (temperature, humidity) => {
+        io.emit('data', Sensor.createDataObject(temperature, humidity));
+
+        const log = orm.em.create(Log, { humidity: humidity, temperature: temperature });
         await orm.em.persistAndFlush(log);
     });
     

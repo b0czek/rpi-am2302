@@ -13,18 +13,12 @@ var socket = io();
 socket.on('data', data => {
     temp.innerHTML = data.temp;
     hum.innerHTML = data.hum;
-    
-    if(data.temp ===null || data.hum === null ) {
-        changeLivebarColor("red");
-    }
-    else {
-        changeLivebarColor("green");
-    }
+    changeLivebarColor("green");
 });
 
 socket.on('error', _ => {
-    temp.innerHTML = null;
-    hum.innerHTML = null;
+    temp.innerHTML = 0.0;
+    hum.innerHTML = 0.0;
     changeLivebarColor("red");
 });
 

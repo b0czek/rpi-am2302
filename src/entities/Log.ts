@@ -8,9 +8,9 @@ export class Log {
     @Property({type: "date" })
     date = new Date();
 
-    @Property({nullable: true})
+    @Property({nullable: true, type: "float"})
     temperature: number;
 
-    @Property({nullable:true})
+    @Property({nullable:true, type: "float"})
     humidity: number;
 }
