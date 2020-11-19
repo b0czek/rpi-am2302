@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+html,
+body {
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    margin: 0;
+}
+
+.container {
+    top: 25%;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.data {
+    margin: auto;
+}
+
+h1 {
+    font-size: 7rem;
+    margin: auto 0;
+}
+
+h1::after {
+    font-size: 2rem;
+    vertical-align: super;
+}
+
+#temperature::after {
+    content: '°C';
+}
+
+#humidity::after {
+    content: '%';
+}
+
+h3 {
+    font-size: 2rem;
+    margin: auto 0;
+}
+
+.live {
+    width: 100%;
+    padding-bottom: 5%;
+    background-color: red;
+    display: inline-block;
+    
+}
+.downlivebar{ 
+    transform: skewX(-30deg);
+}
+.uplivebar{ 
+    transform: skewX(30deg);
+}
