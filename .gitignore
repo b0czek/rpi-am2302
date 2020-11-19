@@ -108,3 +108,7 @@ core
 dist
 # do not leak credentials
 mikro-orm.config.ts
+
+
+#database fetching testing
+data.json
