@@ -18,7 +18,7 @@ const main = async () => {
     await orm.getMigrator().up();
     
     //init sensors
-    let sensor = new Sensor(22, 14, { humDCT: 0.3 });
+    let sensor = new Sensor(TYPE, PIN, { humDCT: 0.3 });
 
     // const logs = await orm.em.find(Log, {});
     // let temperatures: number[] = logs.map(t => t.temperature);
