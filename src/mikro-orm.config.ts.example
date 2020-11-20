@@ -1,5 +1,6 @@
 import { MikroORM } from "@mikro-orm/core/MikroORM";
 import path from "path";
+import { Log } from "./entities/Log";
 
 export default {
     entities: [Log],
