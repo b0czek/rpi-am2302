@@ -6,7 +6,8 @@ export default {
     entities: [Log],
     migrations: {
         path: path.join(__dirname, "./migrations"),
-        pattern: /^[\w-]+\d+\.[tj]s$/
+        pattern: /^[\w-]+\d+\.[tj]s$/,
+        disableForeignKeys: false
     },
     dbName: "dbname",
     type: "postgresql", 

@@ -43,12 +43,11 @@ class DHTSensor {
         this.pin = pin;
         this.type = type;
         // if values not provided, leave their values as initialized by default
-        if(props !== undefined) {
+        if (props !== undefined) {
             this.pollingRate = props.pollingRate != undefined ? props.pollingRate : this.pollingRate;
             this.humDCT = props.humDCT != undefined ? props.humDCT : this.humDCT;
             this.tempDCT = props.tempDCT != undefined ? props.tempDCT : this.tempDCT;
         }
-
         this.readSensor();
 
     }
@@ -61,16 +60,16 @@ class DHTSensor {
                 return;
             }
             // if any of the values fall out of threshold in any direction, then consider the value changed
-            if((temperature <= this.temp - this.tempDCT || temperature >= this.temp + this.tempDCT) ||
+            if ((temperature <= this.temp - this.tempDCT || temperature >= this.temp + this.tempDCT) ||
                 (humidity <= this.hum - this.humDCT || humidity >= this.hum + this.humDCT)) {
-                    
-                    // round values to 1 decimal place - fix it to **.* notation
-                    this.temp = Math.round(temperature * 100) / 100;
-                    this.hum = Math.round(humidity * 100) / 100;
 
-                    // notify about data falling out of threshold
-                    this.emitter.emit('dataChanged', this.temp, this.hum);
-                }
+                // round values to 1 decimal place - fix it to **.* notation
+                this.temp = Math.round(temperature * 100) / 100;
+                this.hum = Math.round(humidity * 100) / 100;
+
+                // notify about data falling out of threshold
+                this.emitter.emit('dataChanged', this.temp, this.hum);
+            }
 
         });
 

@@ -41,7 +41,7 @@ const main = async () => {
         //send data to connecting client so it wont have to wait for the next datachange
         socket.emit('data', sensor.getData());
     });
-    
+
     sensor.emitter.on('dataChanged', async (temperature, humidity) => {
         io.emit('data', Sensor.createDataObject(temperature, humidity));
 
