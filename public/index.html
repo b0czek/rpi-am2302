@@ -12,21 +12,76 @@
 
 <body>
     <div class="container">
-        <div class="data">
-            <div class="live uplivebar"></div>
-            <div class="temperature">
-                <h3>Temperatura:</h3>
-                <h1 id="temperature">0.0</h1>
+        <div class="dataContainer">
+            <div class="data">
+                <div class="live uplivebar"></div>
+                <div class="temperature">
+                    <h3>Temperatura:</h3>
+                    <h1 id="temperature">0.0</h1>
+                </div>
+                <div class="humidity">
+                    <h3>Wilgotność:</h3>
+                    <h1 id="humidity">0.0</h1>
+                </div>
+                <div class="live downlivebar"></div>
             </div>
-            <div class="humidity">
-                <h3>Wilgotność:</h3>
-                <h1 id="humidity">0.0</h1>
-            </div>
-            <div class="live downlivebar"></div>
         </div>
-
+        <div class="chart">
+            <canvas id="chartCtx"></canvas>
+        </div>
     </div>
-    
+    <script src="chart.bundle.min.js"></script>
+    <script>
+
+        const ctx = document.getElementById('chartCtx').getContext('2d');
+        let chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["2015-03-15T13:03:00Z", "2015-03-25T13:02:00Z", "2015-04-25T14:12:00Z"],
+                datasets: [{
+                    label: 'Demo',
+                    data: [{
+                        t: "2015-03-15T13:03:00Z",
+                        y: 12
+                    },
+                    {
+                        t: "2015-03-25T13:02:00Z",
+                        y: 21
+                    },
+                    {
+                        t: "2015-04-25T14:12:00Z",
+                        y: 32
+                    }
+                    ],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        type: 'time',
+                        distribution: 'linear'
+                    }]
+                }
+            }
+        });
+    </script>
     <script src="socket.io.min.js"></script>
     <script src="index.js"></script>
 </body>

@@ -8,12 +8,16 @@ body {
 }
 
 .container {
-    top: 25%;
+    top: 0%;
     position: absolute;
     text-align: center;
     width: 100%;
-    display: flex;
     justify-content: center;
+}
+
+.dataContainer {
+    width:100%;
+    display:flex;
 }
 
 .data {
@@ -55,4 +59,8 @@ h3 {
 }
 .uplivebar{ 
     transform: skewX(30deg);
+}
+
+.chart {
+    width:50%;
 }
