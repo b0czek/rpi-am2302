@@ -59,9 +59,10 @@ class DHTSensor {
                 this.emitter.emit('dataError');
                 return;
             }
+            
             // if any of the values fall out of threshold in any direction, then consider the value changed
-            if ((temperature <= this.temp - this.tempDCT || temperature >= this.temp + this.tempDCT) ||
-                (humidity <= this.hum - this.humDCT || humidity >= this.hum + this.humDCT)) {
+            if (Math.abs(temperature - this.temp) >= this.tempDCT ||
+                Math.abs(humidity - this.hum) >= this.humDCT) {
 
                 // round values to 1 decimal place - fix it to **.* notation
                 this.temp = Math.round(temperature * 100) / 100;
@@ -69,6 +70,7 @@ class DHTSensor {
 
                 // notify about data falling out of threshold
                 this.emitter.emit('dataChanged', this.temp, this.hum);
+
             }
 
         });
