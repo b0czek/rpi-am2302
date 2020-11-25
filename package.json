@@ -8,7 +8,9 @@
     "dev": "nodemon dist/index.js",
     "start": "node dist/index.js",
     "starts": "ts-node src/index.ts",
-    "copy:assets": "rm -r dist/public;cp -r public dist/"
+    "copy:assets": "rm -r dist/public;cp -r public dist/",
+    "tools:random-db-fill:build": "cd tools/random_db_fill && tsc",
+    "tools:random-db-fill:run": "cd tools/random_db_fill && node dist/tools/random_db_fill/src/index.js"
   },
   "author": "",
   "license": "ISC",
