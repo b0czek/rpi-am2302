@@ -12,21 +12,68 @@
 
 <body>
     <div class="container">
-        <div class="data">
-            <div class="live uplivebar"></div>
-            <div class="temperature">
-                <h3>Temperatura:</h3>
-                <h1 id="temperature">0.0</h1>
+        <div class="dataContainer">
+            <div class="data">
+                <div class="live uplivebar"></div>
+                <div class="temperature">
+                    <h3>Temperatura:</h3>
+                    <h1 id="temperature">0.0</h1>
+                </div>
+                <div class="humidity">
+                    <h3>Wilgotność:</h3>
+                    <h1 id="humidity">0.0</h1>
+                </div>
+                <div class="live downlivebar"></div>
             </div>
-            <div class="humidity">
-                <h3>Wilgotność:</h3>
-                <h1 id="humidity">0.0</h1>
-            </div>
-            <div class="live downlivebar"></div>
         </div>
-
+        <div class="chartContainer">
+            <canvas class="chart" id="chartCtx"></canvas>
+            <div class="chartControls">
+                <ul class="controlsList">
+                    <li>
+                        <input type="radio" id="allTime" value="allTime" name="chartControls">
+                        <label for="allTime">
+                            <span>Maks.</span> 
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio" id="year" value="year" name="chartControls">
+                        <label for="year">
+                            <span>Rok</span>
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio" id="month" value="month" name="chartControls">
+                        <label for="month">
+                            <span>Miesiąc</span>
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio" id="week" value="week" name="chartControls">
+                        <label for="week">
+                            <span>Tydzień</span>
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio" id="day" value="day" name="chartControls" checked>
+                        <label for="day">
+                            <span>Dzień</span>
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio" id="hour" value="hour" name="chartControls">
+                        <label for="hour">
+                            <span>Godzina</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
-    
+    <script src="chart.bundle.min.js"></script>
+    <script>
+
+    </script>
     <script src="socket.io.min.js"></script>
     <script src="index.js"></script>
 </body>
