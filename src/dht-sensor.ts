@@ -1,4 +1,4 @@
-import dht from 'node-dht-sensor';
+import dht from './dummy-sensor';
 import { EventEmitter } from 'events';
 
 interface SensorData {
