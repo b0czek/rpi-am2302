@@ -40,12 +40,13 @@ const main = async () => {
     io.on('connect', (socket: Socket) => {
         //send data to connecting client so they wont have to wait for the next datachange
         socket.emit('data', sensor.getData());
-        // socket endpoint for requesting data used in charts, parameter dataFrom is required, dataTo is concluded to be current date by default
-        socket.on('chartDataRequest', async (dataFrom: any, dataTo = (new Date()).toISOString()) => {
+
+        // socket endpoint for requesting data used in charts, parameter dataFrom and dataTo are required to specify period of time to be fetched
+        socket.on('chartDataRequest', async (dataFrom: string, dataTo: string, callback: Function) => {
             console.log('got data request');
             // check if datafrom is actually provided 
-            if(dataFrom == undefined) {
-                socket.emit('chartDataResponse', {
+            if(dataFrom === undefined || dataTo === undefined) {
+                callback({
                     error: true
                 });
                 return;
@@ -57,7 +58,7 @@ const main = async () => {
 
             // if any of them is invalid, then return
             if(dataFrom == "Invalid Date" || dataTo == "Invalid Date") {
-                socket.emit('chartDataResponse', {
+                callback({
                     error: true
                 });
                 return;
@@ -70,8 +71,7 @@ const main = async () => {
             } });
             
             console.log(`datafrom: ${dataFrom}, datato ${dataTo}`);
-            console.log(logs);
-            socket.emit("chartDataResponse", {
+            callback({
                 error: false, 
                 data: logs
             });
