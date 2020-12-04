@@ -58,6 +58,7 @@ class DHTSensor {
             if (err) {
                 // emit dataError when callback reports an error and null the data
                 this.emitter.emit('dataError');
+                console.error(`[${(new Date()).toTimeString().split(" ")[0]}] Reading from sensor resulted in an error`) // get only hour, minute and second inline xddd
                 return;
             }
             // if any of the values fall out of threshold in any direction, then consider the value changed
